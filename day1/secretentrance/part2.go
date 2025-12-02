@@ -6,33 +6,18 @@ import (
 	"os"
 	"strconv"
 	"strings"
+
 )
 
-func Enter() {
-	var filePath string
-	var startingPoint int
-	fmt.Print("Enter path to rotation sequence file: ")
-	_, err := fmt.Scanln(&filePath)
+func Part2() {
+	InputData, err := GatherInput()
 	if err != nil {
-		fmt.Println("Error reading file path:", err)
+		fmt.Println(err)
 		return
 	}
+	defer InputData.SequenceFile.Close()
 
-	fmt.Print("Enter starting point: ")
-	_, err = fmt.Scanln(&startingPoint)
-	if err != nil {
-		fmt.Println("Error reading starting point:", err)
-		return
-	}
-
-	rotSeqFile, err := os.Open(filePath)
-	if err != nil {
-		fmt.Println("Error opening file:", err)
-		return
-	}
-	defer rotSeqFile.Close()
-
-	result, err := processRotationSequence(rotSeqFile, startingPoint)
+	result, err := processRotationSequenceNew(InputData.SequenceFile, InputData.StartingPoint)
 	if err != nil {
 		fmt.Println("Error processing rotation sequence:", err)
 		return
@@ -40,7 +25,7 @@ func Enter() {
 	fmt.Println("Passkey result: ", result)
 }
 
-func processRotationSequence(file *os.File, startingPoint int) (int, error) {
+func processRotationSequenceNew(file *os.File, startingPoint int) (int, error) {
 	var currPosition = startingPoint
 	var zeroCount = 0
 	var splitIndex = 1
@@ -55,18 +40,25 @@ func processRotationSequence(file *os.File, startingPoint int) (int, error) {
 		if err != nil {
 			return 0, fmt.Errorf("Invalid number of steps in line: %s", line)
 		}
+		
 		moddedSteps := steps % (maxStepValue + 1)
-
+		zeroPassCount := steps / (maxStepValue + 1)
 		switch direction {
 		case "L":
 			newPosition = currPosition - moddedSteps
 			if newPosition < 0 {
+				if currPosition != 0 {
+					zeroPassCount++
+				}
 				newPosition = maxStepValue + newPosition + 1
 			}
 		case "R":
 			newPosition = currPosition + moddedSteps
-			if newPosition > maxStepValue {
+			if newPosition > maxStepValue + 1 {
+				zeroPassCount++
 				newPosition = newPosition - maxStepValue - 1
+			} else if newPosition == maxStepValue + 1 {
+				newPosition = 0
 			}
 		default:
 			return 0, fmt.Errorf("Invalid direction in line: %s", line)	
@@ -75,6 +67,7 @@ func processRotationSequence(file *os.File, startingPoint int) (int, error) {
 		if currPosition == 0 {
 			zeroCount++
 		}
+		zeroCount += zeroPassCount
 	}
 	return zeroCount, nil
 }

@@ -5,18 +5,23 @@ import (
 
 	"github.com/lonewolfpr/advent-2025/day1/secretentrance"
 )
+type PuzzleEntry struct {
+	Title string
+	Function func()
+}
 
-var dayPuzzleMap = map[int]map[string]func(){
+var dayPuzzleMap = map[int]map[int]PuzzleEntry{
 	// Day 1
 	1: {
-		"Secret Entrance": secretentrance.Enter,
+		1 : PuzzleEntry{Title: "Secret Entrance Part 1", Function: secretentrance.Part1},
+		2 : PuzzleEntry{Title: "Secret Entrance Part 2", Function: secretentrance.Part2},
 	},
 }
 
 func main() {
 	var numDays = len(dayPuzzleMap)
 	var selectedDay int
-	var selectedPuzzle string
+	var selectedPuzzle PuzzleEntry
 
 	fmt.Printf("Select a day (1-%d): ", numDays)
 	_, err := fmt.Scanln(&selectedDay)
@@ -27,12 +32,9 @@ func main() {
 
 	puzzles := dayPuzzleMap[selectedDay]
 	fmt.Printf("Available puzzles for Day %d:\n", selectedDay)
-	i := 1
-	puzzleKeys := make([]string, 0, len(puzzles))
-	for key := range puzzles {
-		fmt.Printf("%d. %s\n", i, key)
-		puzzleKeys = append(puzzleKeys, key)
-		i++
+	
+	for i := 1; i <= len(puzzles); i++{
+		fmt.Printf("%d. %s\n", i, puzzles[i].Title)
 	}
 
 	fmt.Print("Select a puzzle by number: ")
@@ -43,7 +45,7 @@ func main() {
 		return
 	}
 
-	selectedPuzzle = puzzleKeys[puzzleChoice-1]
-	fmt.Printf("Running Day %d - %s:\n", selectedDay, selectedPuzzle)
-	puzzles[selectedPuzzle]()
+	selectedPuzzle = puzzles[puzzleChoice]
+	fmt.Printf("Running Day %d - %s:\n", selectedDay, selectedPuzzle.Title)
+	selectedPuzzle.Function()
 }
