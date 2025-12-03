@@ -19,20 +19,34 @@ var dayPuzzleMap = map[int]map[int]PuzzleEntry{
 }
 
 func main() {
+	fmt.Println("Welcome to Advent 2025!")
+	keepRunning := true
+	for keepRunning {
+		keepRunning = mainMenu()
+	}
+}
+
+func mainMenu() bool {
 	var numDays = len(dayPuzzleMap)
 	var selectedDay int
 	var selectedPuzzle PuzzleEntry
-
-	fmt.Printf("Select a day (1-%d): ", numDays)
+	fmt.Println("\n---Main Menu---")
+	fmt.Printf("Select a day (1-%d) or press 0 to quit: ", numDays)
 	_, err := fmt.Scanln(&selectedDay)
-	if err != nil || selectedDay < 1 || selectedDay > numDays {
+	if err != nil || selectedDay < 0 || selectedDay > numDays {
 		fmt.Println("Invalid day selection.")
-		return
+		return true
+	}
+	if selectedDay == 0 {
+		fmt.Println("Exiting Advent 2025. Goodbye!")
+		return false
 	}
 
 	puzzles := dayPuzzleMap[selectedDay]
 	fmt.Printf("Available puzzles for Day %d:\n", selectedDay)
 	
+	// Start with Go Back Option
+	fmt.Println("0. Go Back")
 	for i := 1; i <= len(puzzles); i++{
 		fmt.Printf("%d. %s\n", i, puzzles[i].Title)
 	}
@@ -40,12 +54,16 @@ func main() {
 	fmt.Print("Select a puzzle by number: ")
 	var puzzleChoice int
 	_, err = fmt.Scanln(&puzzleChoice)
-	if err != nil || puzzleChoice < 1 || puzzleChoice > len(puzzles) {
+	if err != nil || puzzleChoice < 0 || puzzleChoice > len(puzzles) {
 		fmt.Println("Invalid puzzle selection.")
-		return
+		return true
+	}
+	if puzzleChoice == 0 {
+		return true
 	}
 
 	selectedPuzzle = puzzles[puzzleChoice]
 	fmt.Printf("Running Day %d - %s:\n", selectedDay, selectedPuzzle.Title)
 	selectedPuzzle.Function()
+	return true
 }
