@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/lonewolfpr/advent-2025/day1/secretentrance"
+	"github.com/lonewolfpr/advent-2025/day1"
 )
 type PuzzleEntry struct {
 	Title string
@@ -13,8 +13,8 @@ type PuzzleEntry struct {
 var dayPuzzleMap = map[int]map[int]PuzzleEntry{
 	// Day 1
 	1: {
-		1 : PuzzleEntry{Title: "Secret Entrance Part 1", Function: secretentrance.Part1},
-		2 : PuzzleEntry{Title: "Secret Entrance Part 2", Function: secretentrance.Part2},
+		1 : PuzzleEntry{Title: "Secret Entrance Part 1", Function: day1.Part1},
+		2 : PuzzleEntry{Title: "Secret Entrance Part 2", Function: day1.Part2},
 	},
 }
 

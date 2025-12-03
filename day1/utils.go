@@ -1,4 +1,4 @@
-package secretentrance
+package day1
 import (
 	"fmt"
 	"os"
