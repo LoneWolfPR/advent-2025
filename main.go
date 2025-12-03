@@ -4,10 +4,11 @@ import (
 	"fmt"
 
 	"github.com/lonewolfpr/advent-2025/day1"
+	"github.com/lonewolfpr/advent-2025/day2"
 )
 type PuzzleEntry struct {
 	Title string
-	Function func()
+	Function func() bool
 }
 
 var dayPuzzleMap = map[int]map[int]PuzzleEntry{
@@ -15,6 +16,9 @@ var dayPuzzleMap = map[int]map[int]PuzzleEntry{
 	1: {
 		1 : PuzzleEntry{Title: "Secret Entrance Part 1", Function: day1.Part1},
 		2 : PuzzleEntry{Title: "Secret Entrance Part 2", Function: day1.Part2},
+	},
+	2: {
+		1 : PuzzleEntry{Title: "Product ID Validation", Function: day2.Part1},
 	},
 }
 
@@ -64,6 +68,5 @@ func mainMenu() bool {
 
 	selectedPuzzle = puzzles[puzzleChoice]
 	fmt.Printf("Running Day %d - %s:\n", selectedDay, selectedPuzzle.Title)
-	selectedPuzzle.Function()
-	return true
+	return selectedPuzzle.Function()
 }

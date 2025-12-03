@@ -6,22 +6,26 @@ import (
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/lonewolfpr/advent-2025/utils"
 )
 
-func Part1() {
+func Part1() bool{
 	InputData, err := GatherInput()
 	if err != nil {
 		fmt.Println(err)
-		return
+		return false
 	}
 	defer InputData.SequenceFile.Close()
 	
 	result, err := processRotationSequence(InputData.SequenceFile, InputData.StartingPoint)
 	if err != nil {
 		fmt.Println("Error processing rotation sequence:", err)
-		return
+		return false
 	}
 	fmt.Println("Passkey result: ", result)
+
+	return utils.RunAnotherPuzzlePrompt()
 }
 
 func processRotationSequence(file *os.File, startingPoint int) (int, error) {
