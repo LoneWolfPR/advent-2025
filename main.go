@@ -18,7 +18,8 @@ var dayPuzzleMap = map[int]map[int]PuzzleEntry{
 		2 : PuzzleEntry{Title: "Secret Entrance Part 2", Function: day1.Part2},
 	},
 	2: {
-		1 : PuzzleEntry{Title: "Product ID Validation", Function: day2.Part1},
+		1 : PuzzleEntry{Title: "Product ID Validation Part 1", Function: day2.Part1},
+		2 : PuzzleEntry{Title: "Product ID Validation Part 2", Function: day2.Part2},
 	},
 }
 
