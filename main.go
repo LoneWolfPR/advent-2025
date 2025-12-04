@@ -5,6 +5,7 @@ import (
 
 	"github.com/lonewolfpr/advent-2025/day1"
 	"github.com/lonewolfpr/advent-2025/day2"
+	"github.com/lonewolfpr/advent-2025/day3"
 )
 type PuzzleEntry struct {
 	Title string
@@ -17,9 +18,14 @@ var dayPuzzleMap = map[int]map[int]PuzzleEntry{
 		1 : PuzzleEntry{Title: "Secret Entrance Part 1", Function: day1.Part1},
 		2 : PuzzleEntry{Title: "Secret Entrance Part 2", Function: day1.Part2},
 	},
+	// Day 2
 	2: {
-		1 : PuzzleEntry{Title: "Product ID Validation Part 1", Function: day2.Part1},
-		2 : PuzzleEntry{Title: "Product ID Validation Part 2", Function: day2.Part2},
+		1 : PuzzleEntry{Title: "Gift Shop Part 1", Function: day2.Part1},
+		2 : PuzzleEntry{Title: "Gift Shop Part 2", Function: day2.Part2},
+	},
+	// Day 3
+	3: {
+		1 : PuzzleEntry{Title: "Lobby (works for both parts)", Function: day3.Part1},
 	},
 }
 
