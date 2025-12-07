@@ -37,6 +37,7 @@ var dayPuzzleMap = map[int]map[int]PuzzleEntry{
 	// Day 5
 	5: {
 		1 : PuzzleEntry{Title: "Cafeteria Part 1", Function: day5.IngredientCheck },
+		2 : PuzzleEntry{Title: "Cafeteria Part 2", Function: day5.AllFreshIngredients },
 	},
 }
 
