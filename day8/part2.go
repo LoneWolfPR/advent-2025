@@ -21,9 +21,11 @@ func Part2() bool {
 		return utils.RunAnotherPuzzlePrompt()
 	}
 	distances := findAndSortDistances(boxes)
-	circuits := createCircuits(distances, input.numConnections)
-	answer = len(circuits[0]) * len(circuits[1]) * len(circuits[2])
-	fmt.Println("The product of the size of the three largest circuits:",answer)
+	unifyingConnection := unifyCircuit(distances)
+	box1 := boxes[unifyingConnection.box1Index]
+	box2 := boxes[unifyingConnection.box2Index]
+	answer = int(box1.x) * int(box2.x)
+	fmt.Println("The distance from the wall of the unifying connection is:",answer)
 	return utils.RunAnotherPuzzlePrompt()
 }
 
@@ -64,6 +66,9 @@ func unifyCircuit(distances []BoxDistance) (BoxDistance) {
 				// to each circuit
 				circuits[foundCircuits[0]] = append(circuits[foundCircuits[0]], circuits[foundCircuits[1]]...)
 				circuits = slices.Delete(circuits, foundCircuits[1], foundCircuits[1] + 1)
+			}
+			if len(circuits) == 1 {
+				unifyingConnection = currDistance
 			}
 		}
 	}
