@@ -44,10 +44,11 @@ func countSplits(diagram [][]rune) (int, error) {
 				continue
 			case beamRune:
 				belowSpace := diagram[rowIndex + 1][colIndex]
-				if belowSpace == emptyRune {
+				switch belowSpace {
+				case emptyRune:
 					// No split. Beam carries on
 					diagram[rowIndex + 1][colIndex] = beamRune
-				} else if belowSpace == splitterRune {
+				case splitterRune:
 					// Split found. Increase count and divide beam
 					splitCount++
 					diagram[rowIndex + 1][colIndex - 1] = beamRune

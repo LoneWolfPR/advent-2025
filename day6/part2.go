@@ -58,7 +58,7 @@ func generateProblems2 (lines []string) ([]HomeworkProblem, error) {
 		numbers: []int{},
 		operator: "",
 	}
-	for index, _ := range lines[0] {
+	for index := range lines[0] {
 		numString := ""
 		spaceCount := 0
 		for i := 0; i < numLines; i++ {
