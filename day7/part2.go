@@ -15,15 +15,18 @@ func Part2 () bool {
 	diagramFile, err := GatherInput()
 	if err != nil {
 		fmt.Printf("error gathering input: %v", err)
+		return utils.RunAnotherPuzzlePrompt()
 	}
 
 	diagram, err := ingestDiagramFile(diagramFile)
 	if err != nil {
 		fmt.Printf("error ingesting diagram file: %v", err)
+		return utils.RunAnotherPuzzlePrompt()
 	}
 	startingIndex, err := findInitialStart(diagram[0])
 	if err != nil {
 		fmt.Printf("error finding start point: %v", err)
+		return utils.RunAnotherPuzzlePrompt()
 	}
 	start := &Coordinates{
 		row: 0,

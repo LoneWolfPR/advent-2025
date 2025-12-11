@@ -10,16 +10,19 @@ func Part1 () bool {
 	diagramFile, err := GatherInput()
 	if err != nil {
 		fmt.Printf("error gathering input: %v", err)
+		return utils.RunAnotherPuzzlePrompt()
 	}
 
 	diagram, err := ingestDiagramFile(diagramFile)
 	if err != nil {
 		fmt.Printf("error ingesting diagram file: %v", err)
+		return utils.RunAnotherPuzzlePrompt()
 	}
 
 	splitCount, err := countSplits(diagram)
 	if err != nil {
 		fmt.Printf("error counting splits: %v", err)
+		return utils.RunAnotherPuzzlePrompt()
 	}
 	fmt.Printf("The total number of tachyon beam splits is: %d", splitCount)
 	return utils.RunAnotherPuzzlePrompt()
