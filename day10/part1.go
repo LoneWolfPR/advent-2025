@@ -2,7 +2,6 @@ package day10
 
 import (
 	"fmt"
-	"os"
 	"slices"
 
 	"github.com/lonewolfpr/advent-2025/utils"
@@ -28,17 +27,11 @@ func Part1() bool {
 
 func calcFewestButtonPresses(machines []MachineInfo) int {
 	buttonPresses := 0
-	logFile, err := os.Create("./day10/log.txt")
-	if err != nil {
-		panic("can't open log file")
-	}
 
-	for index, machine := range machines {
+	for _, machine := range machines {
 		machinePresses := calcFewestButtonPressesForMachine(machine)
-		fmt.Fprintf(logFile, "Presses for line %d: %d\n", index + 1, machinePresses)
 		buttonPresses += machinePresses
 	}
-	defer logFile.Close()
 	return buttonPresses
 }
 
